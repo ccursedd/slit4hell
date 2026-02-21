@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Slit For Hell</title>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        background-color: black;
+        color: white;
+        font-family: Arial, sans-serif;
+        overflow: hidden;
+    }
+
+    /* ENTER SCREEN */
+    .enter-screen {
+        position: fixed;
+        inset: 0;
+        background: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10;
+        cursor: pointer;
+        transition: opacity 1s ease;
+    }
+
+    .enter-screen.fade-out {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .enter-text {
+        font-size: 1.2em; /* smaller */
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        transition: 0.3s ease;
+    }
+
+    .enter-text:hover {
+        color: red;
+    }
+
+    /* MAIN CONTENT */
+    .container {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        flex-direction: column;
+        opacity: 0;
+        transform: scale(0.95);
+        transition: opacity 1.2s ease, transform 1.2s ease;
+    }
+
+    .container.show {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .container img {
+        max-width: 900px; /* bigger image */
+        width: 200%;
+        height: auto;
+        margin-bottom: 15px;
+    }
+
+    h1 {
+        margin: 8px 0 4px 0;
+        font-size: 1.5em; /* smaller title */
+    }
+
+    .names {
+        margin-top: 5px;
+        font-size: 0.95em; /* smaller names */
+        line-height: 1.6;
+    }
+</style>
+</head>
+<body>
+
+<!-- ENTER SCREEN -->
+<div class="enter-screen" onclick="enterSite()">
+    <div class="enter-text">Click To Enter</div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="container" id="mainContent">
+    <img src="https://i.ytimg.com/vi/d82E-krP3PM/maxresdefault.jpg" alt="Top Image">
+    <h1>Slit For Hell</h1>
+    <div class="names">
+        vein<br>
+        fux<br>
+        ezekiel
+    </div>
+</div>
+
+<!-- AUDIO -->
+<audio id="bg-music" loop>
+    <source src="https://github.com/ccursedd/slit4hell/raw/refs/heads/main/s4h.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function enterSite() {
+    const enterScreen = document.querySelector(".enter-screen");
+    const mainContent = document.getElementById("mainContent");
+    const music = document.getElementById("bg-music");
+
+    // Fade out enter screen
+    enterScreen.classList.add("fade-out");
+
+    // Show main content
+    mainContent.classList.add("show");
+
+    // Play music
+    music.volume = 0;
+    music.play();
+
+    // Fade in audio
+    let volume = 0;
+    const fadeAudio = setInterval(() => {
+        if (volume < 1) {
+            volume += 0.05;
+            music.volume = volume;
+        } else {
+            clearInterval(fadeAudio);
+        }
+    }, 200);
+}
+</script>
+
+</body>
+</html>
